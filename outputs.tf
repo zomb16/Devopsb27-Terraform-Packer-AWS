@@ -13,3 +13,13 @@ output subnet_1 {
     sensitive = false
 }
 
+output subnet_2 {
+    value = aws_subnet.subnet2-public.id
+    sensitive = false
+}
+
+output subnet_3 {
+    value = aws_subnet.subnet3-public.id
+    sensitive = false
+}
+
