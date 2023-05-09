@@ -23,3 +23,9 @@ output "subnet_3" {
   sensitive = false
 }
 
+output "securitygroup_id" {
+  value     = aws_security_group.allow_all.id
+  sensitive = false
+}
+
+
