@@ -15,11 +15,11 @@ resource "aws_route_table_association" "terraform-publicsubnet-1" {
 }
 
 resource "aws_route_table_association" "terraform-publicsubnet-2" {
-  subnet_id      = aws_subnet.subnet2-public.id
+  subnet_id      = aws_subnet.subnet1-public.id
   route_table_id = aws_route_table.terraform-public.id
 }
 
 resource "aws_route_table_association" "terraform-publicsubnet-3" {
-  subnet_id      = aws_subnet.subnet3-public.id
+  subnet_id      = aws_subnet.subnet1-public.id
   route_table_id = aws_route_table.terraform-public.id
 }

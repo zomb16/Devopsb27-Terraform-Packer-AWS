@@ -3,7 +3,7 @@ resource "aws_vpc" "testvpc001" {
   enable_dns_hostnames = true
   tags = {
     Name        = var.vpc_name
-    Owner       = "Sreeharsha Veerapalli"
+    Owner       = "Ramesh Raju"
     environment = var.env
   }
   depends_on = [
@@ -17,9 +17,4 @@ resource "aws_internet_gateway" "testvpc001" {
     Name = "${var.vpc_name}-IGW"
   }
 }
-
-
-
-
-
 

@@ -4,8 +4,7 @@ resource "aws_subnet" "subnet1-public" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name  = "${var.vpc_name}-Public-Subnet-1"
-    Owner = "DevOpsB027"
+    Name = "${var.vpc_name}-Public-Subnet-1"
   }
 }
 
@@ -15,8 +14,7 @@ resource "aws_subnet" "subnet2-public" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name  = "${var.vpc_name}-Public-Subnet-2"
-    Owner = "DevOpsB027"
+    Name = "${var.vpc_name}-Public-Subnet-2"
   }
 }
 
@@ -26,8 +24,6 @@ resource "aws_subnet" "subnet3-public" {
   availability_zone = "us-east-1c"
 
   tags = {
-    Name  = "${var.vpc_name}-Public-Subnet-3"
-    Owner = "DevOpsB027"
+    Name = "${var.vpc_name}-Public-Subnet-3"
   }
-
 }
