@@ -1,0 +1,1 @@
+1. Since we cannot use backend.json, run aws configure and provide credentails.
