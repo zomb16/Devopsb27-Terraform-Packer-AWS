@@ -1,0 +1,57 @@
+{
+    "_comment": "Create Aws AMI with Ubuntu 20.04",
+    "variables": {
+        "region": "",
+        "source_ami": "",
+        "instance_type": "",
+        "vpc_id": "",
+        "subnet_id": ""
+    },
+    "_comment1": "packer build -var \"aws_secret_key=foo\" packer.json",
+    "_comment2": "packer build -var-file packer-vars.json packer.json",
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "{{user `instance_type`}}",
+            "ssh_username": "ubuntu",
+            "ami_name": "DevOpsClass-B27-Build-{{isotime | clean_resource_name}}",
+            "vpc_id": "{{user `vpc_id`}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "tags": {
+                "Name": "DevOpsClass-B27-Build-{{isotime | clean_resource_name}}"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sleep 15",
+                "sudo useradd -m ansibleadmin --shell /bin/bash",
+                "sudo mkdir -p /home/ansibleadmin/.ssh",
+                "sudo chown -R ansibleadmin /home/ansibleadmin/",
+                "sudo touch /home/ansibleadmin/.ssh/authorized_keys",
+                "sudo usermod -aG sudo ansibleadmin",
+                "echo 'ansibleadmin ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers",
+                "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDby3Op6zf/zW0dgrDIzc529KD0dNxzhn+qd13tHjCwx7MtEzVH7lU6TNASIL5irWrjv48w98qGTE59pgt8IFAjJxR5cAqoU50hPhQmIq10MPbhN9Hg857dqi2TYQDSRyCuZbsGMiwI74DAHCH8/Wp50kfeckW0Dqxs4c6G+jQ8Faw9Xz3Pzmja5IhYw2qOa6OS8S0quv6J5dJg6PMvnEqlKQPkeMkC' | sudo tee /home/ansibleadmin/.ssh/authorized_keys",
+                "curl https://get.docker.com | bash"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "docker.service",
+            "destination": "/tmp/docker.service"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo cp /tmp/docker.service /lib/systemd/system/docker.service",
+                "sudo usermod -a -G docker ubuntu",
+                "sudo systemctl daemon-reload",
+                "sudo service docker restart"
+            ]
+        }
+    ]
+}
